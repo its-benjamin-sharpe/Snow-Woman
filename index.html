@@ -172,6 +172,44 @@
       snowflake.innerText = '❄';
       document.body.appendChild(snowflake);
     }
+
+    // Like and Dislike Logic
+    const stats = {};
+
+    function likeImage(id) {
+      if (!stats[id]) stats[id] = { likes: 0, dislikes: 0 };
+      stats[id].likes++;
+      updateStats(id);
+    }
+
+    function dislikeImage(id) {
+      if (!stats[id]) stats[id] = { likes: 0, dislikes: 0 };
+      stats[id].dislikes++;
+      updateStats(id);
+    }
+
+    function updateStats(id) {
+      document.getElementById(`${id}-stats`).innerText = `Likes: ${stats[id].likes} | Dislikes: ${stats[id].dislikes}`;
+    }
+
+    // Comments Logic
+    function addComment(id) {
+      const name = document.getElementById(`${id}-name`).value.trim();
+      const comment = document.getElementById(`${id}-comment`).value.trim();
+
+      if (!name || !comment) {
+        alert('Please enter your name and comment!');
+        return;
+      }
+
+      const thread = document.getElementById(`${id}-comments`);
+      const newComment = document.createElement('div');
+      newComment.innerHTML = `<strong>${name}</strong>: ${comment}`;
+      thread.appendChild(newComment);
+
+      document.getElementById(`${id}-name`).value = '';
+      document.getElementById(`${id}-comment`).value = '';
+    }
   </script>
 
   <!-- Background Music -->
@@ -183,37 +221,5 @@
   <div class="footer">
     Website created by Chandler's Daddy. I hope you enjoyed this snow woman.
   </div>
-
-  <script>
-    const stats = {};
-    function likeImage(id) {
-      if (!stats[id]) stats[id] = { likes: 0, dislikes: 0 };
-      stats[id].likes++;
-      updateStats(id);
-    }
-    function dislikeImage(id) {
-      if (!stats[id]) stats[id] = { likes: 0, dislikes: 0 };
-      stats[id].dislikes++;
-      updateStats(id);
-    }
-    function updateStats(id) {
-      document.getElementById(`${id}-stats`).innerText = `Likes: ${stats[id].likes} | Dislikes: ${stats[id].dislikes}`;
-    }
-    function addComment(id) {
-      const name = document.getElementById(`${id}-name`).value.trim();
-      const comment = document.getElementById(`${id}-comment`).value.trim();
-      if (!name || !comment) {
-        alert('Please enter your name and comment!');
-        return;
-      }
-      const thread = document.getElementById(`${id}-comments`);
-      const newComment = document.createElement('div');
-      newComment.innerHTML = `<strong>${name}</strong>: ${comment}`;
-      thread.appendChild(newComment);
-      document.getElementById(`${id}-name`).value = '';
-      document.getElementById(`${id}-comment`).value = '';
-    }
-  </script>
 </body>
 </html>
-
