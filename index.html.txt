@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Snowman Showcase</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #6ebff7, #ffffff);
+      overflow: hidden;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-top: 20px;
+    }
+    .snowman-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .snowman-gallery img {
+      width: 300px;
+      height: auto;
+      border: 5px solid #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    @keyframes snow {
+      0% { transform: translateY(-10px); }
+      100% { transform: translateY(100vh); }
+    }
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      color: white;
+      font-size: 1em;
+      opacity: 0.8;
+      animation: snow 10s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <h1>My Beautiful Snowman</h1>
+  <div class="snowman-gallery">
+    <img src="20250112_145533.jpg" alt="Snowman 1">
+    <img src="20250112_145541.jpg" alt="Snowman 2">
+    <img src="20250112_145520.jpg" alt="Snowman 3">
+    <img src="20250112_145526.jpg" alt="Snowman 4">
+    <img src="20250112_145559.jpg" alt="Snowman 5">
+  </div>
+
+  <!-- Snowflakes -->
+  <script>
+    const snowflakes = [];
+    for (let i = 0; i < 100; i++) {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      snowflake.style.left = Math.random() * 100 + 'vw';
+      snowflake.style.fontSize = Math.random() * 20 + 10 + 'px';
+      snowflake.style.animationDuration = Math.random() * 5 + 5 + 's';
+      snowflake.innerText = '❄';
+      document.body.appendChild(snowflake);
+      snowflakes.push(snowflake);
+    }
+  </script>
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="black_betty.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+</body>
+</html>
