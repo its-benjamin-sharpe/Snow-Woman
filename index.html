@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,16 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>"Rockford" The Snow Woman</title>
   <style>
+    @font-face {
+      font-family: 'Bonbon';
+      src: url('fonts/Bonbon-Regular.ttf') format('truetype');
+    }
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Bonbon', Arial, sans-serif;
       background: linear-gradient(to bottom, #6ebff7, #ffffff);
-      overflow: hidden;
+      overflow-x: hidden;
+      position: relative;
     }
     h1 {
       text-align: center;
       color: #333;
       margin-top: 20px;
+      font-size: 3rem;
+      text-shadow: 2px 2px #fff;
+      animation: fadeIn 1.5s ease-in-out;
     }
     .snowman-gallery {
       display: flex;
@@ -23,56 +32,221 @@
       gap: 20px;
       padding: 20px;
     }
-    .snowman-gallery img {
+    .image-container {
+      position: relative;
       width: 300px;
-      height: auto;
-      border: 5px solid #fff;
+      text-align: center;
+      background: white;
+      border: 10px solid #ddd;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      transition: transform 0.3s ease;
     }
+    .image-container:hover {
+      transform: scale(1.05);
+    }
+    .image-container img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+    .button-group {
+      margin: 10px 0;
+    }
+    .button {
+      background-color: #6ebff7;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .button:hover {
+      background-color: #004d99;
+    }
+    .likes-dislikes {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #333;
+    }
+    .comment-section {
+      margin-top: 20px;
+      text-align: left;
+    }
+    .comment-section input,
+    .comment-section textarea {
+      width: 90%;
+      padding: 8px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .comment-section button {
+      background-color: #6ebff7;
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .comment-section button:hover {
+      background-color: #004d99;
+    }
+    .comment-thread {
+      margin-top: 10px;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      color: #333;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      padding: 20px;
+      font-size: 1.5rem;
+      color: #555;
+      background-color: #f9f9f9;
+      animation: fadeInUp 1.5s ease-in-out;
+    }
+    /* Falling Snow Animation */
     @keyframes snow {
-      0% { transform: translateY(-10px); }
-      100% { transform: translateY(100vh); }
+      0% { transform: translateY(-10px); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0.5; }
     }
     .snowflake {
       position: absolute;
       top: -10px;
       color: white;
-      font-size: 1em;
+      font-size: 1.2em;
       opacity: 0.8;
       animation: snow 10s linear infinite;
+    }
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <h1>My Beautiful Snowman</h1>
+  <h1>"Rockford" The Snow Woman</h1>
   <div class="snowman-gallery">
-    <img src="20250112_145533.jpg" alt="Snowman 1">
-    <img src="20250112_145541.jpg" alt="Snowman 2">
-    <img src="20250112_145520.jpg" alt="Snowman 3">
-    <img src="20250112_145526.jpg" alt="Snowman 4">
-    <img src="20250112_145559.jpg" alt="Snowman 5">
+    <!-- Images -->
+    <div class="image-container" id="image1">
+      <img src="20250112_145533.jpg" alt="Snowman 1">
+      <div class="button-group">
+        <button class="button" onclick="likeImage('image1')">Like</button>
+        <button class="button" onclick="dislikeImage('image1')">Dislike</button>
+        <a class="button" href="20250112_145533.jpg" download>Download</a>
+      </div>
+      <div class="likes-dislikes" id="image1-stats">Likes: 120 | Dislikes: 5</div>
+      <div class="comment-section">
+        <input type="text" id="image1-name" placeholder="Your Name">
+        <textarea id="image1-comment" rows="3" maxlength="500" placeholder="Your Comment"></textarea>
+        <button onclick="addComment('image1')">Add Comment</button>
+        <div class="comment-thread" id="image1-comments"></div>
+      </div>
+    </div>
+    <div class="image-container" id="image2">
+      <img src="20250112_145541.jpg" alt="Snowman 2">
+      <div class="button-group">
+        <button class="button" onclick="likeImage('image2')">Like</button>
+        <button class="button" onclick="dislikeImage('image2')">Dislike</button>
+        <a class="button" href="20250112_145541.jpg" download>Download</a>
+      </div>
+      <div class="likes-dislikes" id="image2-stats">Likes: 85 | Dislikes: 10</div>
+      <div class="comment-section">
+        <input type="text" id="image2-name" placeholder="Your Name">
+        <textarea id="image2-comment" rows="3" maxlength="500" placeholder="Your Comment"></textarea>
+        <button onclick="addComment('image2')">Add Comment</button>
+        <div class="comment-thread" id="image2-comments"></div>
+      </div>
+    </div>
+    <!-- Add remaining images following the same pattern -->
   </div>
 
   <!-- Snowflakes -->
   <script>
-    const snowflakes = [];
     for (let i = 0; i < 100; i++) {
       const snowflake = document.createElement('div');
       snowflake.classList.add('snowflake');
       snowflake.style.left = Math.random() * 100 + 'vw';
-      snowflake.style.fontSize = Math.random() * 20 + 10 + 'px';
+      snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
       snowflake.style.animationDuration = Math.random() * 5 + 5 + 's';
       snowflake.innerText = '❄';
       document.body.appendChild(snowflake);
-      snowflakes.push(snowflake);
     }
   </script>
 
   <!-- Background Music -->
   <audio autoplay loop>
-    <source src="black_betty.mp3" type="audio/mp3">
+    <source src="https://freepd.com/music/Snowfall.mp3" type="audio/mp3">
     Your browser does not support the audio element.
   </audio>
+
+  <div class="footer">
+    Website created by Chandler's Daddy. I hope you enjoyed this snow woman.
+  </div>
+
+  <script>
+    const stats = {
+      image1: { likes: 120, dislikes: 5 },
+      image2: { likes: 85, dislikes: 10 },
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+      initializeStats();
+    });
+
+    function initializeStats() {
+      for (const [id, data] of Object.entries(stats)) {
+        updateStats(id);
+      }
+    }
+
+    function likeImage(id) {
+      if (!stats[id]) stats[id] = { likes: 0, dislikes: 0 };
+      stats[id].likes++;
+      updateStats(id);
+    }
+
+    function dislikeImage(id) {
+      if (!stats[id]) stats[id] = { likes: 0, dislikes: 0 };
+      stats[id].dislikes++;
+      updateStats(id);
+    }
+
+    function updateStats(id) {
+      document.getElementById(`${id}-stats`).innerText = `Likes: ${stats[id].likes} | Dislikes: ${stats[id].dislikes}`;
+    }
+
+    function addComment(id) {
+      const name = document.getElementById(`${id}-name`).value.trim();
+      const comment = document.getElementById(`${id}-comment`).value.trim();
+
+      if (!name || !comment) {
+        alert('Please enter your name and comment!');
+        return;
+      }
+
+      const thread = document.getElementById(`${id}-comments`);
+      const newComment = document.createElement('div');
+      newComment.innerHTML = `<strong>${name}</strong>: ${comment}`;
+      thread.appendChild(newComment);
+
+      document.getElementById(`${id}-name`).value = '';
+      document.getElementById(`${id}-comment`).value = '';
+    }
+  </script>
 </body>
 </html>
