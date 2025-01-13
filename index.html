@@ -108,8 +108,6 @@
     Website created by Chandler's Daddy. I hope you enjoyed this snow woman!
   </footer>
 
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
   <script>
     // Firebase Configuration
     const firebaseConfig = {
@@ -146,7 +144,7 @@
       container.id = id;
 
       const img = document.createElement('img');
-      img.src = src;
+      img.src = src; // Reference the image directly from the same directory
       img.alt = `Snowman ${index + 1}`;
       img.style.width = '100%';
 
