@@ -121,6 +121,29 @@
       animation: snow 10s linear infinite;
     }
   </style>
+
+  <!-- Firebase Integration -->
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getDatabase } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-database.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBo0TziC2KCehJRKref9dnzNjOTOe_1za8",
+      authDomain: "rockford-snow-woman.firebaseapp.com",
+      databaseURL: "https://rockford-snow-woman-default-rtdb.firebaseio.com",
+      projectId: "rockford-snow-woman",
+      storageBucket: "rockford-snow-woman.appspot.com",
+      messagingSenderId: "637010052164",
+      appId: "1:637010052164:web:3463930aa214f774d22811",
+      measurementId: "G-KJ4XTKJJMN"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+  </script>
 </head>
 <body>
   <h1>"Rockford" The Snow Woman</h1>
