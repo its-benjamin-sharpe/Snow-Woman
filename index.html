@@ -86,16 +86,16 @@
 </head>
 <body>
   <h1>"Rockford" The Snow Woman</h1>
-  
+
   <!-- Audio Player -->
   <div>
     <h2>Enjoy Some Background Music</h2>
     <audio controls>
-      <source src="https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/aimusiclabcreateaigeneratedmusic.mp3" type="audio/mpeg">
+      <source src="aimusiclabcreateaigeneratedmusic.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
     <br>
-    <a href="https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/aimusiclabcreateaigeneratedmusic.mp3" download="Snow-Woman-Background-Music.mp3">
+    <a href="aimusiclabcreateaigeneratedmusic.mp3" download="Snow-Woman-Background-Music.mp3">
       <button class="button">Download Music</button>
     </a>
   </div>
@@ -108,6 +108,8 @@
     Website created by Chandler's Daddy. I hope you enjoyed this snow woman!
   </footer>
 
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
   <script>
     // Firebase Configuration
     const firebaseConfig = {
@@ -144,7 +146,7 @@
       container.id = id;
 
       const img = document.createElement('img');
-      img.src = `https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/${src}`;
+      img.src = src;
       img.alt = `Snowman ${index + 1}`;
       img.style.width = '100%';
 
