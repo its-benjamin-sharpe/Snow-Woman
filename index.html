@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>"Rockford" The Snow Woman</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <!-- Navigation Bar -->
   <nav>
     <h2>"Rockford" The Snow Woman</h2>
     <div>
+      <a href="#gallery">Gallery</a>
+      <a href="#jokes">Jokes</a>
+      <a href="#about">About</a>
       <a href="#gallery">Gallery</a>
       <a href="#jokes">Jokes</a>
       <a href="#about">About</a>
@@ -22,7 +26,30 @@
 
   <!-- Jokes Section -->
   <section id="jokes" class="jokes-section">
+  <section id="jokes" class="jokes-section">
     <h2>Snowman Jokes</h2>
+    <p id="joke">Why was the snowman looking through the carrots?</p>
+    <button id="reveal-joke">Reveal Punchline</button>
+  </section>
+
+  <!-- Audio Section -->
+  <section class="audio-section">
+    <h2>Listen While You Scroll</h2>
+    <audio controls>
+      <source src="audio/aimusiclabcreateaigeneratedmusic.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <a href="audio/aimusiclabcreateaigeneratedmusic.mp3" download>
+      <button>Download Track 1</button>
+    </a>
+    <audio controls>
+      <source src="audio/snowman-snowman-280169.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <a href="audio/snowman-snowman-280169.mp3" download>
+      <button>Download Track 2</button>
+    </a>
+  </section>
     <p id="joke">Why was the snowman looking through the carrots?</p>
     <button id="reveal-joke">Reveal Punchline</button>
   </section>
@@ -50,10 +77,13 @@
   <section id="gallery" class="gallery">
     <!-- Images will be loaded dynamically -->
   </section>
+  <section id="gallery" class="gallery">
+    <!-- Images will be loaded dynamically -->
+  </section>
 
   <!-- Footer -->
   <footer>
-    Created by Chandler's Daddy. All rights reserved.
+    Created by Chandler's Daddy. Powered by ChatGPT. All rights reserved.
   </footer>
 
   <!-- Firebase Scripts -->
