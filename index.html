@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A masterpiece website about Snow Woman with interactive jokes and a breathtaking snowfall animation.">
+  <meta name="description" content="A breathtaking Snow Woman website with snowfall animation, interactive jokes, and Firebase integration.">
   <title>Snow Woman</title>
   <link rel="stylesheet" href="style.css">
+  <script type="module" src="https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js"></script>
+  <script type="module" src="https://www.gstatic.com/firebasejs/10.3.0/firebase-firestore.js"></script>
 </head>
 <body>
   <div class="snow-container"></div>
@@ -18,14 +20,25 @@
   <main>
     <section class="jokes">
       <div class="joke">
-        <h2 id="joke-setup">Why did the snowman call his friend?</h2>
+        <h2 id="joke-setup">Loading joke...</h2>
         <button id="reveal-btn" class="button reveal">Reveal Punchline</button>
-        <p id="joke-punchline" class="hidden">Because he needed a little help to chill!</p>
+        <p id="joke-punchline" class="hidden">Loading punchline...</p>
       </div>
       <div class="navigation">
         <button id="prev-btn" class="button nav">Previous</button>
         <button id="next-btn" class="button nav">Next</button>
       </div>
+    </section>
+
+    <section class="add-joke">
+      <h2>Add Your Joke</h2>
+      <form id="joke-form">
+        <label for="joke-setup-input">Setup:</label>
+        <textarea id="joke-setup-input" required></textarea>
+        <label for="joke-punchline-input">Punchline:</label>
+        <textarea id="joke-punchline-input" required></textarea>
+        <button type="submit" class="button submit">Add Joke</button>
+      </form>
     </section>
   </main>
 
