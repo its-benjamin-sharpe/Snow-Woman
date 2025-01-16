@@ -9,7 +9,7 @@
       margin: 0;
       font-family: Arial, sans-serif;
       background: linear-gradient(to bottom, #6ebff7, #ffffff);
-      overflow: hidden;
+      overflow-x: hidden;
       text-align: center;
     }
 
@@ -138,71 +138,78 @@
   <script>
     // Firebase Configuration
     const firebaseConfig = {
-      apiKey: "AIzaSyBo0TziC2KCehJRKref9dnzNjOTOe_1za8",
-      authDomain: "rockford-snow-woman.firebaseapp.com",
-      databaseURL: "https://rockford-snow-woman-default-rtdb.firebaseio.com",
-      projectId: "rockford-snow-woman",
-      storageBucket: "rockford-snow-woman.appspot.com",
-      messagingSenderId: "637010052164",
-      appId: "1:637010052164:web:3463930aa214f774d22811",
-      measurementId: "G-KJ4XTKJJMN"
+      apiKey: "your-api-key",
+      authDomain: "your-project-id.firebaseapp.com",
+      databaseURL: "https://your-project-id-default-rtdb.firebaseio.com",
+      projectId: "your-project-id",
+      storageBucket: "your-project-id.appspot.com",
+      messagingSenderId: "your-sender-id",
+      appId: "your-app-id"
     };
 
     // Initialize Firebase
     const app = firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
-    const gallery = document.getElementById('gallery');
+    const gallery = document.getElementById("gallery");
+
+    // List of image file names
     const images = [
-      'https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/20250112_145512.jpg',
-      'https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/20250112_145520.jpg',
-      'https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/20250112_145526.jpg',
-      'https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/20250112_145533.jpg',
-      'https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/20250112_145541.jpg',
-      'https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/20250112_145559.jpg',
-      'https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/20250112_145604.jpg'
+      "20250112_145512.jpg",
+      "20250112_145520.jpg",
+      "20250112_145526.jpg",
+      "20250112_145533.jpg",
+      "20250112_145541.jpg",
+      "20250112_145559.jpg"
     ];
 
-    // Initialize gallery with images
-    images.forEach((src, index) => {
+    // Initialize the gallery
+    images.forEach((filename, index) => {
       const id = `image${index + 1}`;
-      const container = document.createElement('div');
-      container.className = 'image-container';
-      container.id = id;
 
-      const img = document.createElement('img');
-      img.src = src; // Reference the image from GitHub
+      // Create container
+      const container = document.createElement("div");
+      container.className = "image-container";
+
+      const img = document.createElement("img");
+      img.src = filename; // Assuming images are in the same folder
       img.alt = `Snowman ${index + 1}`;
-      img.style.width = '100%';
+      img.style.width = "100%";
 
-      const likeBtn = document.createElement('button');
-      likeBtn.textContent = 'Like';
-      likeBtn.className = 'button';
+      // Like button
+      const likeBtn = document.createElement("button");
+      likeBtn.textContent = "Like";
+      likeBtn.className = "button";
       likeBtn.onclick = () => updateLikes(id);
 
-      const dislikeBtn = document.createElement('button');
-      dislikeBtn.textContent = 'Dislike';
-      dislikeBtn.className = 'button';
+      // Dislike button
+      const dislikeBtn = document.createElement("button");
+      dislikeBtn.textContent = "Dislike";
+      dislikeBtn.className = "button";
       dislikeBtn.onclick = () => updateDislikes(id);
 
-      const stats = document.createElement('div');
+      // Stats display
+      const stats = document.createElement("div");
       stats.id = `${id}-stats`;
-      stats.textContent = 'Likes: 0 | Dislikes: 0';
+      stats.textContent = "Likes: 0 | Dislikes: 0";
 
-      const commentInput = document.createElement('textarea');
-      commentInput.placeholder = 'Write a comment...';
+      // Comment input
+      const commentInput = document.createElement("textarea");
+      commentInput.placeholder = "Write a comment...";
       commentInput.id = `${id}-comment`;
 
-      const commentBtn = document.createElement('button');
-      commentBtn.textContent = 'Add Comment';
-      commentBtn.className = 'button';
+      // Add comment button
+      const commentBtn = document.createElement("button");
+      commentBtn.textContent = "Add Comment";
+      commentBtn.className = "button";
       commentBtn.onclick = () => addComment(id);
 
-      const commentThread = document.createElement('div');
+      // Comment thread display
+      const commentThread = document.createElement("div");
       commentThread.id = `${id}-comments`;
-      commentThread.style.marginTop = '10px';
-      commentThread.style.textAlign = 'left';
+      commentThread.style.marginTop = "10px";
 
+      // Append elements to the container
       container.appendChild(img);
       container.appendChild(likeBtn);
       container.appendChild(dislikeBtn);
@@ -218,14 +225,15 @@
       loadComments(id);
     });
 
+    // Functions for likes, dislikes, and comments
     function updateLikes(id) {
       const ref = database.ref(`images/${id}/likes`);
-      ref.transaction(current => (current || 0) + 1);
+      ref.transaction((current) => (current || 0) + 1);
     }
 
     function updateDislikes(id) {
       const ref = database.ref(`images/${id}/dislikes`);
-      ref.transaction(current => (current || 0) + 1);
+      ref.transaction((current) => (current || 0) + 1);
     }
 
     function addComment(id) {
@@ -234,13 +242,13 @@
       if (comment) {
         const ref = database.ref(`images/${id}/comments`);
         ref.push({ text: comment, timestamp: Date.now() });
-        commentInput.value = '';
+        commentInput.value = "";
       }
     }
 
     function loadStats(id) {
       const ref = database.ref(`images/${id}`);
-      ref.on('value', snapshot => {
+      ref.on("value", (snapshot) => {
         const data = snapshot.val();
         const stats = document.getElementById(`${id}-stats`);
         stats.textContent = `Likes: ${data?.likes || 0} | Dislikes: ${data?.dislikes || 0}`;
@@ -249,10 +257,10 @@
 
     function loadComments(id) {
       const ref = database.ref(`images/${id}/comments`);
-      ref.on('child_added', snapshot => {
+      ref.on("child_added", (snapshot) => {
         const comment = snapshot.val();
         const commentThread = document.getElementById(`${id}-comments`);
-        const div = document.createElement('div');
+        const div = document.createElement("div");
         div.textContent = comment.text;
         commentThread.appendChild(div);
       });
@@ -260,294 +268,12 @@
 
     // Snowfall Script
     const createSnowflake = () => {
-      const snowflake = document.createElement('div');
-      snowflake.classList.add('snowflake');
-      snowflake.textContent = '❄';
-      snowflake.style.left = Math.random() * window.innerWidth + 'px';
-      snowflake.style.animationDuration = Math.random() * 3 + 2 + 's'; // Between 2 and 5 seconds
-      snowflake.style.fontSize = Math.random() * 10 + 10 + 'px'; // Between 10px and 20px
-      snowflake.style.opacity = Math.random();
-
-      document.body.appendChild(snowflake);
-
-      // Remove snowflake after animation
-      setTimeout(() => {
-        snowflake.remove();
-      }, 5000);
-    };
-
-    // Generate multiple snowflakes
-    setInterval(createSnowflake, 50); // Adjust frequency of snowflakes here
-  </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>"Rockford" The Snow Woman</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #6ebff7, #ffffff);
-      overflow: hidden;
-      text-align: center;
-    }
-
-    h1 {
-      margin: 20px;
-      font-size: 2.5rem;
-      color: #333;
-    }
-
-    .audio-section {
-      margin: 20px 0;
-      padding: 20px;
-      background-color: #f4f4f4;
-      border-radius: 10px;
-      text-align: center;
-    }
-
-    .audio-section h2 {
-      margin: 0 0 10px 0;
-      font-size: 1.5rem;
-      color: #333;
-    }
-
-    .audio-section p {
-      font-size: 1rem;
-      color: #555;
-      margin: 0 0 15px 0;
-    }
-
-    .audio-section audio {
-      margin-bottom: 15px;
-    }
-
-    .snowman-gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-    }
-
-    .image-container {
-      position: relative;
-      width: 300px;
-      text-align: center;
-      background: white;
-      border: 10px solid #ddd;
-      border-radius: 10px;
-      padding: 10px;
-    }
-
-    .button {
-      background-color: #6ebff7;
-      border: none;
-      color: white;
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      margin: 5px;
-    }
-
-    .button:hover {
-      background-color: #004d99;
-    }
-
-    footer {
-      margin-top: 20px;
-      padding: 20px;
-      background-color: #f9f9f9;
-      font-size: 1.2rem;
-      color: #555;
-    }
-
-    /* Snowflake Styles */
-    .snowflake {
-      position: absolute;
-      top: -10px;
-      color: white;
-      font-size: 1rem;
-      opacity: 0.8;
-      animation: fall linear infinite;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    /* Snowflake Animation */
-    @keyframes fall {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.8;
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-  </style>
-</head>
-<body>
-  <h1>"Rockford" The Snow Woman</h1>
-
-  <!-- Audio Section -->
-  <div class="audio-section">
-    <h2>Enjoy Some Background Music</h2>
-    <p>Click play to enjoy the music or download the track below!</p>
-    <audio controls>
-      <source src="aimusiclabcreateaigeneratedmusic.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-    <br>
-    <a href="aimusiclabcreateaigeneratedmusic.mp3" download="Snow-Woman-Background-Music.mp3">
-      <button class="button">Download Music</button>
-    </a>
-  </div>
-
-  <!-- Image Gallery -->
-  <div class="snowman-gallery" id="gallery"></div>
-
-  <!-- Footer -->
-  <footer>
-    Website created by Chandler's Daddy. I hope you enjoyed this snow woman!
-  </footer>
-
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-  <script>
-    // Firebase Configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyBo0TziC2KCehJRKref9dnzNjOTOe_1za8",
-      authDomain: "rockford-snow-woman.firebaseapp.com",
-      databaseURL: "https://rockford-snow-woman-default-rtdb.firebaseio.com",
-      projectId: "rockford-snow-woman",
-      storageBucket: "rockford-snow-woman.appspot.com",
-      messagingSenderId: "637010052164",
-      appId: "1:637010052164:web:3463930aa214f774d22811",
-      measurementId: "G-KJ4XTKJJMN"
-    };
-
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-
-    const gallery = document.getElementById('gallery');
-    const images = [
-      'https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/20250112_145512.jpg',
-      'https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/20250112_145520.jpg',
-      'https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/20250112_145526.jpg',
-      'https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/20250112_145533.jpg',
-      'https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/20250112_145541.jpg',
-      'https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/20250112_145559.jpg',
-      'https://raw.githubusercontent.com/its-benjamin-sharpe/Snow-Woman/main/20250112_145604.jpg'
-    ];
-
-    // Initialize gallery with images
-    images.forEach((src, index) => {
-      const id = `image${index + 1}`;
-      const container = document.createElement('div');
-      container.className = 'image-container';
-      container.id = id;
-
-      const img = document.createElement('img');
-      img.src = src; // Reference the image from GitHub
-      img.alt = `Snowman ${index + 1}`;
-      img.style.width = '100%';
-
-      const likeBtn = document.createElement('button');
-      likeBtn.textContent = 'Like';
-      likeBtn.className = 'button';
-      likeBtn.onclick = () => updateLikes(id);
-
-      const dislikeBtn = document.createElement('button');
-      dislikeBtn.textContent = 'Dislike';
-      dislikeBtn.className = 'button';
-      dislikeBtn.onclick = () => updateDislikes(id);
-
-      const stats = document.createElement('div');
-      stats.id = `${id}-stats`;
-      stats.textContent = 'Likes: 0 | Dislikes: 0';
-
-      const commentInput = document.createElement('textarea');
-      commentInput.placeholder = 'Write a comment...';
-      commentInput.id = `${id}-comment`;
-
-      const commentBtn = document.createElement('button');
-      commentBtn.textContent = 'Add Comment';
-      commentBtn.className = 'button';
-      commentBtn.onclick = () => addComment(id);
-
-      const commentThread = document.createElement('div');
-      commentThread.id = `${id}-comments`;
-      commentThread.style.marginTop = '10px';
-      commentThread.style.textAlign = 'left';
-
-      container.appendChild(img);
-      container.appendChild(likeBtn);
-      container.appendChild(dislikeBtn);
-      container.appendChild(stats);
-      container.appendChild(commentInput);
-      container.appendChild(commentBtn);
-      container.appendChild(commentThread);
-
-      gallery.appendChild(container);
-
-      // Load initial stats and comments
-      loadStats(id);
-      loadComments(id);
-    });
-
-    function updateLikes(id) {
-      const ref = database.ref(`images/${id}/likes`);
-      ref.transaction(current => (current || 0) + 1);
-    }
-
-    function updateDislikes(id) {
-      const ref = database.ref(`images/${id}/dislikes`);
-      ref.transaction(current => (current || 0) + 1);
-    }
-
-    function addComment(id) {
-      const commentInput = document.getElementById(`${id}-comment`);
-      const comment = commentInput.value.trim();
-      if (comment) {
-        const ref = database.ref(`images/${id}/comments`);
-        ref.push({ text: comment, timestamp: Date.now() });
-        commentInput.value = '';
-      }
-    }
-
-    function loadStats(id) {
-      const ref = database.ref(`images/${id}`);
-      ref.on('value', snapshot => {
-        const data = snapshot.val();
-        const stats = document.getElementById(`${id}-stats`);
-        stats.textContent = `Likes: ${data?.likes || 0} | Dislikes: ${data?.dislikes || 0}`;
-      });
-    }
-
-    function loadComments(id) {
-      const ref = database.ref(`images/${id}/comments`);
-      ref.on('child_added', snapshot => {
-        const comment = snapshot.val();
-        const commentThread = document.getElementById(`${id}-comments`);
-        const div = document.createElement('div');
-        div.textContent = comment.text;
-        commentThread.appendChild(div);
-      });
-    }
-
-    // Snowfall Script
-    const createSnowflake = () => {
-      const snowflake = document.createElement('div');
-      snowflake.classList.add('snowflake');
-      snowflake.textContent = '❄';
-      snowflake.style.left = Math.random() * window.innerWidth + 'px';
-      snowflake.style.animationDuration = Math.random() * 3 + 2 + 's'; // Between 2 and 5 seconds
-      snowflake.style.fontSize = Math.random() * 10 + 10 + 'px'; // Between 10px and 20px
+      const snowflake = document.createElement("div");
+      snowflake.classList.add("snowflake");
+      snowflake.textContent = "❄";
+      snowflake.style.left = Math.random() * window.innerWidth + "px";
+      snowflake.style.animationDuration = Math.random() * 3 + 2 + "s"; // Between 2 and 5 seconds
+      snowflake.style.fontSize = Math.random() * 10 + 10 + "px"; // Between 10px and 20px
       snowflake.style.opacity = Math.random();
 
       document.body.appendChild(snowflake);
