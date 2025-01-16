@@ -5,202 +5,235 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>"Rockford" The Snow Woman</title>
   <style>
-    /* General Styling */
     body {
       margin: 0;
       font-family: 'Arial', sans-serif;
-      background: linear-gradient(to bottom, #f0f8ff, #ffffff);
+      background: url('https://images.unsplash.com/photo-1541849545-bc0ffcefc160?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDV8fHNub3clMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTY5NDYyNzY2MA&ixlib=rb-1.2.1&q=80&w=1920') no-repeat center center fixed;
+      background-size: cover;
       color: #333;
-      overflow-x: hidden;
+    }
+
+    h1, h2, footer {
+      text-align: center;
     }
 
     h1 {
-      text-align: center;
-      font-size: 3rem;
       margin: 20px 0;
-      color: #444;
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+      font-size: 3rem;
+      color: #fff;
+      text-shadow: 2px 2px 4px #000;
     }
 
-    /* Navigation Bar */
-    nav {
-      background: #ff6f61;
-      padding: 15px 20px;
+    .audio-section {
       position: sticky;
       top: 0;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 15px;
       z-index: 1000;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      color: #fff;
+      text-align: center;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
     }
 
-    nav h2 {
-      margin: 0;
-      display: inline;
+    .audio-section audio {
+      margin-bottom: 10px;
+    }
+
+    .jokes-section {
+      margin: 20px auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      text-align: center;
+      max-width: 800px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .jokes-section h2 {
+      margin-bottom: 10px;
       font-size: 1.8rem;
     }
 
-    nav a {
-      margin-left: 20px;
-      text-decoration: none;
-      color: #fff;
-      font-weight: bold;
-      font-size: 1rem;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: #ffd1cf;
-    }
-
-    /* Masonry Grid Layout */
     .gallery {
-      column-count: 3;
-      column-gap: 1.5rem;
-      margin: 20px;
-      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      margin: auto;
+      max-width: 1200px;
     }
 
-    .gallery-item {
+    .image-container {
       background: #fff;
-      margin: 0 0 1.5rem;
-      display: inline-block;
-      width: 100%;
-      border-radius: 8px;
+      border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
     }
 
-    .gallery-item:hover {
-      transform: scale(1.05);
-    }
-
-    .gallery-item img {
+    .image-container img {
       width: 100%;
       display: block;
     }
 
-    .gallery-item .details {
+    .image-details {
       padding: 15px;
-      font-size: 0.9rem;
-      color: #555;
-      text-align: center;
+      font-size: 1rem;
     }
 
-    .gallery-item button {
-      background-color: #ff6f61;
-      border: none;
-      color: #fff;
-      padding: 10px 20px;
+    .image-details textarea,
+    .image-details input {
+      width: calc(100% - 20px);
+      margin: 5px 0;
+      padding: 8px;
+      font-size: 1rem;
+      border: 1px solid #ddd;
       border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: background-color 0.3s ease;
     }
 
-    .gallery-item button:hover {
-      background-color: #ff8f81;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      right: 0;
-      background: #fdfdfd;
-      width: 300px;
-      height: 100%;
-      box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      overflow-y: auto;
-    }
-
-    .sidebar h2 {
-      text-align: center;
-      color: #ff6f61;
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-    }
-
-    .sidebar p {
-      font-size: 1rem;
-      margin-bottom: 15px;
-      color: #555;
-    }
-
-    /* Footer */
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      padding: 20px;
-      background: #ff6f61;
+    .image-details button {
+      background-color: #007BFF;
       color: #fff;
-      font-size: 1rem;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
     }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .gallery {
-        column-count: 2;
-      }
-
-      .sidebar {
-        display: none;
-      }
+    .image-details button:hover {
+      background-color: #0056b3;
     }
 
-    @media (max-width: 480px) {
-      .gallery {
-        column-count: 1;
+    footer {
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      font-size: 1.2rem;
+      margin-top: 40px;
+    }
+
+    /* Snowflake Animation */
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      font-size: 1.5rem;
+      color: white;
+      animation: fall 5s linear infinite;
+      opacity: 0.9;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
       }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav>
-    <h2>Rockford Snow Woman</h2>
-    <a href="#">Gallery</a>
-    <a href="#">Jokes</a>
-    <a href="#">About</a>
-  </nav>
-
-  <!-- Main Title -->
   <h1>"Rockford" The Snow Woman</h1>
 
-  <!-- Masonry Gallery -->
-  <div class="gallery">
-    <!-- Example Images -->
-    <div class="gallery-item">
-      <img src="20250112_145512.jpg" alt="Snowman 1">
-      <div class="details">
-        <p>Beautiful Snowman #1</p>
-        <button>Like</button>
-      </div>
-    </div>
-    <div class="gallery-item">
-      <img src="20250112_145520.jpg" alt="Snowman 2">
-      <div class="details">
-        <p>Snowman with Style</p>
-        <button>Like</button>
-      </div>
-    </div>
-    <!-- Add more images dynamically here -->
+  <!-- Audio Section -->
+  <div class="audio-section">
+    <audio controls loop>
+      <source src="aimusiclabcreateaigeneratedmusic.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <br>
+    <audio controls>
+      <source src="snowman-snowman-280169.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
   </div>
 
-  <!-- Sidebar for Jokes -->
-  <div class="sidebar">
-    <h2>Snowman Jokes</h2>
-    <p>Why was the snowman looking through the carrots? He was picking his nose!</p>
-    <p>What’s a snowman’s favorite drink? Ice tea!</p>
-    <p>How do snowmen travel? By “icicle”!</p>
-    <p>What do you call a snowman in the summer? A puddle!</p>
+  <!-- Jokes Section -->
+  <div class="jokes-section">
+    <h2>Here's a Snowman Joke!</h2>
+    <p id="joke">Loading a funny snowman joke...</p>
+    <button onclick="generateJoke()">Get Another Joke</button>
   </div>
+
+  <!-- Image Gallery -->
+  <div class="gallery" id="gallery"></div>
 
   <!-- Footer -->
   <footer>
-    © 2025 Created by Chandler's Daddy. All rights reserved.
+    Created by Chandler's Daddy. I hope you enjoyed the snow woman!
   </footer>
+
+  <script>
+    const jokes = [
+      "Why did the snowman go to therapy? He had a meltdown!",
+      "What do snowmen wear on their heads? Ice caps!",
+      "What’s a snowman’s favorite snack? Ice Krispies!",
+      "Why was the snowman looking through the carrots? He was picking his nose!",
+      "How do snowmen greet each other? Ice to meet you!"
+    ];
+
+    function generateJoke() {
+      const randomIndex = Math.floor(Math.random() * jokes.length);
+      document.getElementById("joke").textContent = jokes[randomIndex];
+    }
+
+    generateJoke(); // Load the first joke on page load.
+
+    const images = [
+      "20250112_145512.jpg",
+      "20250112_145520.jpg",
+      "20250112_145526.jpg",
+      "20250112_145533.jpg",
+      "20250112_145541.jpg",
+      "20250112_145559.jpg"
+    ];
+
+    const gallery = document.getElementById("gallery");
+
+    images.forEach((image) => {
+      const container = document.createElement("div");
+      container.className = "image-container";
+
+      const img = document.createElement("img");
+      img.src = image;
+      img.alt = "Snowman Image";
+
+      const details = document.createElement("div");
+      details.className = "image-details";
+
+      const likeBtn = document.createElement("button");
+      likeBtn.textContent = "Like";
+      details.appendChild(likeBtn);
+
+      const commentBox = document.createElement("textarea");
+      commentBox.placeholder = "Leave a comment...";
+      details.appendChild(commentBox);
+
+      const nameBox = document.createElement("input");
+      nameBox.placeholder = "Your Name...";
+      details.appendChild(nameBox);
+
+      const submitBtn = document.createElement("button");
+      submitBtn.textContent = "Post";
+      details.appendChild(submitBtn);
+
+      container.appendChild(img);
+      container.appendChild(details);
+      gallery.appendChild(container);
+    });
+
+    const createSnowflake = () => {
+      const snowflake = document.createElement("div");
+      snowflake.className = "snowflake";
+      snowflake.textContent = "❄";
+      snowflake.style.left = Math.random() * window.innerWidth + "px";
+      snowflake.style.animationDuration = Math.random() * 5 + 5 + "s";
+      snowflake.style.fontSize = Math.random() * 10 + 10 + "px";
+      document.body.appendChild(snowflake);
+      setTimeout(() => snowflake.remove(), 5000);
+    };
+
+    setInterval(createSnowflake, 100);
+  </script>
 </body>
 </html>
