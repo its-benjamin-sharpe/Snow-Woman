@@ -1,19 +1,19 @@
-// Firebase Configuration
+// Firebase Initialization
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
 import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
-// Replace with your Firebase configuration
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = initializeApp({
+  apiKey: "AIzaSyBo@TziC2KCehJRKref9dnzNjOTOe_1za8",
+  authDomain: "rockford-snow-woman.firebaseapp.com",
+  databaseURL: "https://rockford-snow-woman-default-rtdb.firebaseio.com",
+  projectId: "rockford-snow-woman",
+  storageBucket: "rockford-snow-woman.appspot.com",
+  messagingSenderId: "637010052164",
+  appId: "1:637010052164:web:3463938aa214f774d22811",
+  measurementId: "G-KJ4XTKJJMN"
+});
+
 const db = getFirestore(app);
 
 // Jokes Data (Hardcoded)
