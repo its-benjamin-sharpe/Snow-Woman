@@ -5,16 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Snow Woman</title>
   <link rel="stylesheet" href="style.css">
+  <script type="module" src="script.js" defer></script>
 </head>
 <body>
+  <!-- Snowfall Background -->
   <div class="snow-container"></div>
 
+  <!-- Header Section -->
   <header>
     <h1>Snow Woman</h1>
     <p>Created by Chandler's daddy Benjamin Dale Sharpe</p>
   </header>
 
+  <!-- Main Content -->
   <main>
+    <!-- Gallery Section -->
     <section class="gallery">
       <h2>Gallery</h2>
       <div class="gallery-container">
@@ -28,12 +33,25 @@
       </div>
     </section>
 
+    <!-- Jokes Section -->
     <section class="jokes">
       <h2>Jokes Section</h2>
       <div class="joke">
-        <h3 id="joke-setup">Why did the snowman bring a map?</h3>
+        <h3 id="joke-setup">Loading...</h3>
         <button id="reveal-btn" class="button">Reveal Punchline</button>
-        <p id="joke-punchline" class="hidden">Because he got lost in the snowdrift!</p>
+        <p id="joke-punchline" class="hidden">Loading...</p>
+        <div class="likes-comments">
+          <button id="like-btn" class="button">👍 Like</button>
+          <span id="like-count">0</span> likes
+          <div class="comments">
+            <h4>Comments</h4>
+            <ul id="comment-list"></ul>
+            <form id="comment-form">
+              <input id="comment-input" type="text" placeholder="Add a comment" required />
+              <button type="submit" class="button">Submit</button>
+            </form>
+          </div>
+        </div>
       </div>
       <div class="navigation">
         <button id="prev-btn" class="button">Previous</button>
@@ -42,10 +60,9 @@
     </section>
   </main>
 
+  <!-- Footer Section -->
   <footer>
     <p>&copy; 2025 Benjamin Dale Sharpe</p>
   </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
