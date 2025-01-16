@@ -4,196 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>"Rockford" The Snow Woman</title>
-  <style>
-    /* General Styling */
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to bottom, #ffffff, #cce7ff);
-      color: #333;
-      overflow-x: hidden;
-    }
-
-    /* Snowflake Background Pattern */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('https://www.transparenttextures.com/patterns/snow.png') repeat;
-      opacity: 0.2;
-      z-index: -1;
-    }
-
-    h1, h2, footer {
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin: 20px 0;
-      color: #444;
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Navigation Bar */
-    nav {
-      background: #6ebff7;
-      padding: 15px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    nav h2 {
-      margin: 0;
-      font-size: 1.8rem;
-    }
-
-    nav a {
-      margin-left: 20px;
-      text-decoration: none;
-      color: #fff;
-      font-weight: bold;
-      font-size: 1rem;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: #e0f7ff;
-    }
-
-    /* Image Gallery */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      padding: 20px;
-      margin: auto;
-      max-width: 1200px;
-    }
-
-    .gallery-item {
-      background: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      position: relative;
-    }
-
-    .gallery-item img {
-      width: 100%;
-      display: block;
-    }
-
-    .gallery-item .details {
-      padding: 15px;
-      font-size: 1rem;
-    }
-
-    .gallery-item button,
-    .gallery-item a {
-      background-color: #6ebff7;
-      border: none;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-top: 10px;
-      text-decoration: none;
-      display: inline-block;
-      transition: background-color 0.3s ease;
-    }
-
-    .gallery-item button:hover,
-    .gallery-item a:hover {
-      background-color: #0056b3;
-    }
-
-    /* Jokes Section */
-    .jokes-section {
-      margin: 40px auto;
-      padding: 20px;
-      background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 10px;
-      text-align: center;
-      max-width: 800px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .jokes-section h2 {
-      margin-bottom: 10px;
-      font-size: 1.8rem;
-      color: #6ebff7;
-    }
-
-    .jokes-section p {
-      font-size: 1.2rem;
-      color: #333;
-      margin-bottom: 15px;
-    }
-
-    .jokes-section button {
-      background-color: #6ebff7;
-      border: none;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    .jokes-section button:hover {
-      background-color: #0056b3;
-    }
-
-    /* Footer */
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      padding: 20px;
-      background: #6ebff7;
-      color: #fff;
-      font-size: 1rem;
-    }
-
-    /* Snowflake Animation */
-    .snowflake {
-      position: absolute;
-      top: -10px;
-      font-size: 1.5rem;
-      color: white;
-      animation: fall 7s linear infinite;
-      opacity: 0.9;
-    }
-
-    @keyframes fall {
-      0% {
-        transform: translateY(0) rotate(0deg);
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <!-- Navigation Bar -->
   <nav>
     <h2>"Rockford" The Snow Woman</h2>
     <div>
-      <a href="#">Gallery</a>
-      <a href="#">Jokes</a>
-      <a href="#">About</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#jokes">Jokes</a>
+      <a href="#about">About</a>
     </div>
   </nav>
 
@@ -201,76 +21,46 @@
   <h1>Rockford's Snowy Adventures</h1>
 
   <!-- Jokes Section -->
-  <div class="jokes-section">
+  <section id="jokes" class="jokes-section">
     <h2>Snowman Jokes</h2>
-    <p id="joke">Why was the snowman looking through the carrots? He was picking his nose!</p>
-    <button onclick="generateJoke()">New Joke</button>
-  </div>
+    <p id="joke">Why was the snowman looking through the carrots?</p>
+    <button id="reveal-joke">Reveal Punchline</button>
+  </section>
+
+  <!-- Audio Section -->
+  <section class="audio-section">
+    <h2>Listen While You Scroll</h2>
+    <audio controls>
+      <source src="audio/aimusiclabcreateaigeneratedmusic.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <a href="audio/aimusiclabcreateaigeneratedmusic.mp3" download>
+      <button>Download Track 1</button>
+    </a>
+    <audio controls>
+      <source src="audio/snowman-snowman-280169.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <a href="audio/snowman-snowman-280169.mp3" download>
+      <button>Download Track 2</button>
+    </a>
+  </section>
 
   <!-- Image Gallery -->
-  <div class="gallery" id="gallery">
-    <div class="gallery-item">
-      <img src="20250112_145512.jpg" alt="Snowman 1">
-      <div class="details">
-        <p>Snowman #1</p>
-        <p>Likes: 1123</p>
-        <p>Comments:</p>
-        <ul>
-          <li>John: "Amazing snowman!"</li>
-          <li>Mary: "Love it!"</li>
-        </ul>
-        <button>Like</button>
-        <a href="20250112_145512.jpg" download>Download Image</a>
-      </div>
-    </div>
-    <div class="gallery-item">
-      <img src="20250112_145520.jpg" alt="Snowman 2">
-      <div class="details">
-        <p>Snowman #2</p>
-        <p>Likes: 983</p>
-        <p>Comments:</p>
-        <ul>
-          <li>Alex: "So cute!"</li>
-          <li>Sophia: "Great job!"</li>
-        </ul>
-        <button>Like</button>
-        <a href="20250112_145520.jpg" download>Download Image</a>
-      </div>
-    </div>
-  </div>
+  <section id="gallery" class="gallery">
+    <!-- Images will be loaded dynamically -->
+  </section>
 
   <!-- Footer -->
   <footer>
     Created by Chandler's Daddy. All rights reserved.
   </footer>
 
-  <script>
-    const jokes = [
-      "Why was the snowman looking through the carrots? He was picking his nose!",
-      "What’s a snowman’s favorite snack? Ice Krispies!",
-      "How do snowmen greet each other? Ice to meet you!",
-      "Why did the snowman go to therapy? He had a meltdown!",
-      "What’s a snowman’s favorite drink? Ice tea!"
-    ];
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
-    function generateJoke() {
-      const randomIndex = Math.floor(Math.random() * jokes.length);
-      document.getElementById("joke").textContent = jokes[randomIndex];
-    }
-
-    const createSnowflake = () => {
-      const snowflake = document.createElement("div");
-      snowflake.className = "snowflake";
-      snowflake.textContent = "❄";
-      snowflake.style.left = Math.random() * window.innerWidth + "px";
-      snowflake.style.animationDuration = Math.random() * 3 + 4 + "s";
-      snowflake.style.fontSize = Math.random() * 10 + 20 + "px";
-      document.body.appendChild(snowflake);
-      setTimeout(() => snowflake.remove(), 7000);
-    };
-
-    setInterval(createSnowflake, 50);
-    generateJoke();
-  </script>
+  <!-- Custom JavaScript -->
+  <script src="js/script.js"></script>
 </body>
 </html>
