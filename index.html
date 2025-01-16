@@ -3,94 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>"Rockford" The Snow Woman</title>
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/styles.css">
+  <meta name="description" content="A masterpiece website about Snow Woman with interactive jokes and a breathtaking snowfall animation.">
+  <title>Snow Woman</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav>
-    <h2>"Rockford" The Snow Woman</h2>
-    <div>
-      <a href="#gallery">Gallery</a>
-      <a href="#jokes">Jokes</a>
-      <a href="#about">About</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#jokes">Jokes</a>
-      <a href="#about">About</a>
-    </div>
-  </nav>
+  <div class="snow-container"></div>
+  
+  <header>
+    <h1>Snow Woman</h1>
+    <p class="tagline">Created by Chandler's daddy Benjamin Dale Sharpe</p>
+  </header>
 
-  <!-- Main Title -->
-  <h1>Rockford's Snowy Adventures</h1>
+  <main>
+    <section class="jokes">
+      <div class="joke">
+        <h2 id="joke-setup">Why did the snowman call his friend?</h2>
+        <button id="reveal-btn" class="button reveal">Reveal Punchline</button>
+        <p id="joke-punchline" class="hidden">Because he needed a little help to chill!</p>
+      </div>
+      <div class="navigation">
+        <button id="prev-btn" class="button nav">Previous</button>
+        <button id="next-btn" class="button nav">Next</button>
+      </div>
+    </section>
+  </main>
 
-  <!-- Jokes Section -->
-  <section id="jokes" class="jokes-section">
-  <section id="jokes" class="jokes-section">
-    <h2>Snowman Jokes</h2>
-    <p id="joke">Why was the snowman looking through the carrots?</p>
-    <button id="reveal-joke">Reveal Punchline</button>
-  </section>
-
-  <!-- Audio Section -->
-  <section class="audio-section">
-    <h2>Listen While You Scroll</h2>
-    <audio controls>
-      <source src="audio/aimusiclabcreateaigeneratedmusic.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-    <a href="audio/aimusiclabcreateaigeneratedmusic.mp3" download>
-      <button>Download Track 1</button>
-    </a>
-    <audio controls>
-      <source src="audio/snowman-snowman-280169.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-    <a href="audio/snowman-snowman-280169.mp3" download>
-      <button>Download Track 2</button>
-    </a>
-  </section>
-    <p id="joke">Why was the snowman looking through the carrots?</p>
-    <button id="reveal-joke">Reveal Punchline</button>
-  </section>
-
-  <!-- Audio Section -->
-  <section class="audio-section">
-    <h2>Listen While You Scroll</h2>
-    <audio controls>
-      <source src="audio/aimusiclabcreateaigeneratedmusic.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-    <a href="audio/aimusiclabcreateaigeneratedmusic.mp3" download>
-      <button>Download Track 1</button>
-    </a>
-    <audio controls>
-      <source src="audio/snowman-snowman-280169.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-    <a href="audio/snowman-snowman-280169.mp3" download>
-      <button>Download Track 2</button>
-    </a>
-  </section>
-
-  <!-- Image Gallery -->
-  <section id="gallery" class="gallery">
-    <!-- Images will be loaded dynamically -->
-  </section>
-  <section id="gallery" class="gallery">
-    <!-- Images will be loaded dynamically -->
-  </section>
-
-  <!-- Footer -->
   <footer>
-    Created by Chandler's Daddy. Powered by ChatGPT. All rights reserved.
+    <p>&copy; 2025 Benjamin Dale Sharpe. All Rights Reserved.</p>
   </footer>
 
-  <!-- Firebase Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-  <!-- Custom JavaScript -->
-  <script src="js/script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
