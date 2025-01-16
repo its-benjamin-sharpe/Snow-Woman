@@ -133,8 +133,10 @@
     Website created by Chandler's Daddy. I hope you enjoyed this snow woman!
   </footer>
 
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+  <!-- Firebase Classic SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
+  
   <script>
     // Firebase Configuration
     const firebaseConfig = {
@@ -148,7 +150,7 @@
     };
 
     // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
     const gallery = document.getElementById("gallery");
@@ -166,8 +168,6 @@
     // Initialize the gallery
     images.forEach((filename, index) => {
       const id = `image${index + 1}`;
-
-      // Create container
       const container = document.createElement("div");
       container.className = "image-container";
 
@@ -176,40 +176,33 @@
       img.alt = `Snowman ${index + 1}`;
       img.style.width = "100%";
 
-      // Like button
       const likeBtn = document.createElement("button");
       likeBtn.textContent = "Like";
       likeBtn.className = "button";
       likeBtn.onclick = () => updateLikes(id);
 
-      // Dislike button
       const dislikeBtn = document.createElement("button");
       dislikeBtn.textContent = "Dislike";
       dislikeBtn.className = "button";
       dislikeBtn.onclick = () => updateDislikes(id);
 
-      // Stats display
       const stats = document.createElement("div");
       stats.id = `${id}-stats`;
       stats.textContent = "Likes: 0 | Dislikes: 0";
 
-      // Comment input
       const commentInput = document.createElement("textarea");
       commentInput.placeholder = "Write a comment...";
       commentInput.id = `${id}-comment`;
 
-      // Add comment button
       const commentBtn = document.createElement("button");
       commentBtn.textContent = "Add Comment";
       commentBtn.className = "button";
       commentBtn.onclick = () => addComment(id);
 
-      // Comment thread display
       const commentThread = document.createElement("div");
       commentThread.id = `${id}-comments`;
       commentThread.style.marginTop = "10px";
 
-      // Append elements to the container
       container.appendChild(img);
       container.appendChild(likeBtn);
       container.appendChild(dislikeBtn);
@@ -220,7 +213,6 @@
 
       gallery.appendChild(container);
 
-      // Load initial stats and comments
       loadStats(id);
       loadComments(id);
     });
@@ -265,27 +257,6 @@
         commentThread.appendChild(div);
       });
     }
-
-    // Snowfall Script
-    const createSnowflake = () => {
-      const snowflake = document.createElement("div");
-      snowflake.classList.add("snowflake");
-      snowflake.textContent = "❄";
-      snowflake.style.left = Math.random() * window.innerWidth + "px";
-      snowflake.style.animationDuration = Math.random() * 3 + 2 + "s"; // Between 2 and 5 seconds
-      snowflake.style.fontSize = Math.random() * 10 + 10 + "px"; // Between 10px and 20px
-      snowflake.style.opacity = Math.random();
-
-      document.body.appendChild(snowflake);
-
-      // Remove snowflake after animation
-      setTimeout(() => {
-        snowflake.remove();
-      }, 5000);
-    };
-
-    // Generate multiple snowflakes
-    setInterval(createSnowflake, 50); // Adjust frequency of snowflakes here
   </script>
 </body>
 </html>
