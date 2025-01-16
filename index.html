@@ -75,6 +75,14 @@
       background-color: #004d99;
     }
 
+    textarea,
+    input {
+      width: 90%;
+      margin: 10px 0;
+      padding: 8px;
+      font-size: 1rem;
+    }
+
     footer {
       margin-top: 20px;
       padding: 20px;
@@ -114,14 +122,23 @@
   <!-- Audio Section -->
   <div class="audio-section">
     <h2>Enjoy Some Background Music</h2>
-    <p>Click play to enjoy the music or download the track below!</p>
-    <audio controls>
+    <p>Click play to enjoy the music or download the tracks below!</p>
+    <audio controls loop>
       <source src="aimusiclabcreateaigeneratedmusic.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
     <br>
     <a href="aimusiclabcreateaigeneratedmusic.mp3" download="Snow-Woman-Background-Music.mp3">
-      <button class="button">Download Music</button>
+      <button class="button">Download Song 1</button>
+    </a>
+    <br>
+    <audio controls>
+      <source src="snowman-snowman-280169.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <br>
+    <a href="snowman-snowman-280169.mp3" download="Snowman-Song.mp3">
+      <button class="button">Download Song 2</button>
     </a>
   </div>
 
@@ -133,7 +150,7 @@
     Website created by Chandler's Daddy. I hope you enjoyed this snow woman!
   </footer>
 
-  <!-- Firebase Classic SDKs -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
   
@@ -190,6 +207,10 @@
       stats.id = `${id}-stats`;
       stats.textContent = "Likes: 0 | Dislikes: 0";
 
+      const nameInput = document.createElement("input");
+      nameInput.placeholder = "Your Name...";
+      nameInput.id = `${id}-name`;
+
       const commentInput = document.createElement("textarea");
       commentInput.placeholder = "Write a comment...";
       commentInput.id = `${id}-comment`;
@@ -203,12 +224,19 @@
       commentThread.id = `${id}-comments`;
       commentThread.style.marginTop = "10px";
 
+      const downloadBtn = document.createElement("a");
+      downloadBtn.href = filename;
+      downloadBtn.download = filename;
+      downloadBtn.innerHTML = `<button class="button">Download Image</button>`;
+
       container.appendChild(img);
       container.appendChild(likeBtn);
       container.appendChild(dislikeBtn);
       container.appendChild(stats);
+      container.appendChild(nameInput);
       container.appendChild(commentInput);
       container.appendChild(commentBtn);
+      container.appendChild(downloadBtn);
       container.appendChild(commentThread);
 
       gallery.appendChild(container);
@@ -217,7 +245,67 @@
       loadComments(id);
     });
 
-    // Functions for likes, dislikes, and comments (same as before)
+    function updateLikes(id) {
+      const ref = database.ref(`images/${id}/likes`);
+      ref.transaction((current) => (current || 0) + 1);
+    }
+
+    function updateDislikes(id) {
+      const ref = database.ref(`images/${id}/dislikes`);
+      ref.transaction((current) => (current || 0) + 1);
+    }
+
+    function addComment(id) {
+      const nameInput = document.getElementById(`${id}-name`).value.trim();
+      const commentInput = document.getElementById(`${id}-comment`).value.trim();
+      if (nameInput && commentInput) {
+        const ref = database.ref(`images/${id}/comments`);
+        ref.push({ name: nameInput, text: commentInput, timestamp: Date.now() });
+        document.getElementById(`${id}-name`).value = "";
+        document.getElementById(`${id}-comment`).value = "";
+      }
+    }
+
+    function loadStats(id) {
+      const ref = database.ref(`images/${id}`);
+      ref.on("value", (snapshot) => {
+        const data = snapshot.val();
+        const stats = document.getElementById(`${id}-stats`);
+        stats.textContent = `Likes: ${data?.likes || 0} | Dislikes: ${data?.dislikes || 0}`;
+      });
+    }
+
+    function loadComments(id) {
+      const ref = database.ref(`images/${id}/comments`);
+      ref.on("child_added", (snapshot) => {
+        const comment = snapshot.val();
+        const commentThread = document.getElementById(`${id}-comments`);
+        const div = document.createElement("div");
+        div.textContent = `${comment.name}: ${comment.text}`;
+        commentThread.appendChild(div);
+      });
+    }
+
+    // Snowfall Script
+    const createSnowflake = () => {
+      const snowflake = document.createElement("div");
+      snowflake.classList.add("snowflake");
+      snowflake.textContent = "❄";
+      snowflake.style.left = Math.random() * window.innerWidth + "px";
+      snowflake.style.animationDuration = Math.random() * 3 + 2 + "s"; // Between 2 and 5 seconds
+      snowflake.style.fontSize = Math.random() * 10 + 10 + "px"; // Between 10px and 20px
+      snowflake.style.opacity = Math.random();
+
+      document.body.appendChild(snowflake);
+
+      // Remove snowflake after animation
+      setTimeout(() => {
+        snowflake.remove();
+      }, 5000);
+    };
+
+    setInterval(createSnowflake, 50); // Adjust frequency of snowflakes
   </script>
 </body>
 </html>
+
