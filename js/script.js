@@ -1,19 +1,29 @@
 // Firebase Configuration
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.3.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
+// Replace with your Firebase configuration
 const firebaseConfig = {
-  apiKey: "your-api-key",
-  authDomain: "your-auth-domain",
-  projectId: "your-project-id",
-  storageBucket: "your-storage-bucket",
-  messagingSenderId: "your-messaging-sender-id",
-  appId: "your-app-id"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+// Jokes Data (Hardcoded)
+const jokes = [
+  { id: "joke1", setup: "Why did the snowman bring a map?", punchline: "Because he got lost in the snowdrift!" },
+  { id: "joke2", setup: "What do you call a snowman in summer?", punchline: "A puddle!" },
+  { id: "joke3", setup: "How does a snowman get around?", punchline: "By riding an icicle!" },
+];
+
+let currentJokeIndex = 0;
 
 // DOM Elements
 const setupElem = document.getElementById("joke-setup");
@@ -21,25 +31,19 @@ const punchlineElem = document.getElementById("joke-punchline");
 const revealBtn = document.getElementById("reveal-btn");
 const prevBtn = document.getElementById("prev-btn");
 const nextBtn = document.getElementById("next-btn");
-const form = document.getElementById("joke-form");
+const likeBtn = document.getElementById("like-btn");
+const likeCountElem = document.getElementById("like-count");
+const commentForm = document.getElementById("comment-form");
+const commentInput = document.getElementById("comment-input");
+const commentList = document.getElementById("comment-list");
 
-let jokes = [];
-let currentJokeIndex = 0;
-
-// Load jokes from Firebase
-async function loadJokes() {
-  const querySnapshot = await getDocs(collection(db, "jokes"));
-  jokes = querySnapshot.docs.map(doc => doc.data());
-  if (jokes.length > 0) {
-    loadJoke(currentJokeIndex);
-  }
-}
-
-// Display a joke
+// Load Joke
 function loadJoke(index) {
-  setupElem.textContent = jokes[index].setup;
-  punchlineElem.textContent = jokes[index].punchline;
+  const joke = jokes[index];
+  setupElem.textContent = joke.setup;
+  punchlineElem.textContent = joke.punchline;
   punchlineElem.classList.add("hidden");
+  loadLikesAndComments(joke.id);
 }
 
 // Reveal Punchline
@@ -62,17 +66,53 @@ nextBtn.addEventListener("click", () => {
   }
 });
 
-// Add New Joke
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const setup = document.getElementById("joke-setup-input").value;
-  const punchline = document.getElementById("joke-punchline-input").value;
+// Load Likes and Comments
+async function loadLikesAndComments(jokeId) {
+  const jokeRef = doc(db, "jokes", jokeId);
+  const jokeDoc = await getDoc(jokeRef);
 
-  await addDoc(collection(db, "jokes"), { setup, punchline });
-  alert("Joke added!");
-  form.reset();
-  loadJokes();
+  if (jokeDoc.exists()) {
+    const data = jokeDoc.data();
+    likeCountElem.textContent = data.likes || 0;
+    commentList.innerHTML = "";
+    (data.comments || []).forEach((comment) => {
+      const li = document.createElement("li");
+      li.textContent = comment;
+      commentList.appendChild(li);
+    });
+  } else {
+    // Initialize joke data if it doesn't exist
+    await setDoc(jokeRef, { likes: 0, comments: [] });
+    likeCountElem.textContent = 0;
+    commentList.innerHTML = "";
+  }
+}
+
+// Like a Joke
+likeBtn.addEventListener("click", async () => {
+  const jokeId = jokes[currentJokeIndex].id;
+  const jokeRef = doc(db, "jokes", jokeId);
+
+  await updateDoc(jokeRef, {
+    likes: (await getDoc(jokeRef)).data().likes + 1,
+  });
+
+  loadLikesAndComments(jokeId);
 });
 
-// Initialize
-loadJokes();
+// Submit a Comment
+commentForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const jokeId = jokes[currentJokeIndex].id;
+  const jokeRef = doc(db, "jokes", jokeId);
+
+  await updateDoc(jokeRef, {
+    comments: arrayUnion(commentInput.value),
+  });
+
+  commentInput.value = "";
+  loadLikesAndComments(jokeId);
+});
+
+// Initialize First Joke
+loadJoke(currentJokeIndex);
