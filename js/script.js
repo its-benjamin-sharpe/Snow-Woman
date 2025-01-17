@@ -17,26 +17,16 @@ document.addEventListener("DOMContentLoaded", () => {
     "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B",
   ];
 
-  // Create Piano Keys
-  notes.forEach((note, index) => {
+  notes.forEach((note) => {
     const key = document.createElement("div");
     key.textContent = note;
     key.className = note.includes("#") ? "black" : "white";
     piano.appendChild(key);
-
-    // Play Sound on Click
-    key.addEventListener("click", () => {
-      const audio = new Audio(`https://raw.githubusercontent.com/gleitz/midi-js-soundfonts/gh-pages/FluidR3_GM/piano-mp3/${note}.mp3`);
-      audio.play();
-    });
   });
 
-  // MIDI Keyboard
+  // MIDI Connection
   const midiStatus = document.getElementById("midi-status");
-  const midiMessage = document.getElementById("midi-message");
-
   JZZ().or("MIDI connection failed").openMidiIn().connect((msg) => {
-    midiStatus.textContent = "MIDI device connected!";
-    midiMessage.textContent = `MIDI Message: ${msg}`;
+    midiStatus.textContent = `Received MIDI: ${msg}`;
   });
 });
