@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Snow Woman</title>
   <link rel="stylesheet" href="css/styles.css">
-  <script type="module" src="js/script.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jzz"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jzz-midi-smf"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jzz-input-kbd"></script>
+  <script defer src="js/script.js"></script>
 </head>
 <body>
   <!-- Snowfall Background -->
@@ -19,71 +22,20 @@
 
   <!-- Main Content -->
   <main>
-    <!-- Image Gallery -->
-    <section class="gallery">
-      <h2>Gallery</h2>
-      <div class="gallery-container">
-        <div class="gallery-item">
-          <img src="images/20250112_145512.jpg" alt="Snowman 1">
-          <a href="images/20250112_145512.jpg" download class="button download-btn">Download</a>
-        </div>
-        <div class="gallery-item">
-          <img src="images/20250112_145520.jpg" alt="Snowman 2">
-          <a href="images/20250112_145520.jpg" download class="button download-btn">Download</a>
-        </div>
-        <div class="gallery-item">
-          <img src="images/20250112_145526.jpg" alt="Snowman 3">
-          <a href="images/20250112_145526.jpg" download class="button download-btn">Download</a>
-        </div>
-        <div class="gallery-item">
-          <img src="images/20250112_145533.jpg" alt="Snowman 4">
-          <a href="images/20250112_145533.jpg" download class="button download-btn">Download</a>
-        </div>
-        <div class="gallery-item">
-          <img src="images/20250112_145541.jpg" alt="Snowman 5">
-          <a href="images/20250112_145541.jpg" download class="button download-btn">Download</a>
-        </div>
-        <div class="gallery-item">
-          <img src="images/20250112_145559.jpg" alt="Snowman 6">
-          <a href="images/20250112_145559.jpg" download class="button download-btn">Download</a>
-        </div>
-        <div class="gallery-item">
-          <img src="images/20250112_145604.jpg" alt="Snowman 7">
-          <a href="images/20250112_145604.jpg" download class="button download-btn">Download</a>
-        </div>
+    <!-- Benjamin's Musical Workshop Playground -->
+    <section class="music-playground">
+      <h2>Benjamin's Musical Workshop Playground</h2>
+      <!-- Playable Piano -->
+      <div id="piano-container">
+        <h3>Playable Piano</h3>
+        <div id="piano" class="piano"></div>
       </div>
-    </section>
 
-    <!-- Jokes Section -->
-    <section class="jokes">
-      <h2>Jokes</h2>
-      <div class="joke">
-        <h3 id="joke-setup">Loading...</h3>
-        <button id="reveal-btn" class="button">Reveal Punchline</button>
-        <p id="joke-punchline" class="hidden">Loading...</p>
-        <div class="likes-comments">
-          <button id="like-btn" class="button">👍 Like</button>
-          <span id="like-count">0</span> likes
-        </div>
-      </div>
-      <div class="navigation">
-        <button id="prev-btn" class="button">Previous</button>
-        <button id="next-btn" class="button">Next</button>
-      </div>
-    </section>
-
-    <!-- Audio Section -->
-    <section class="audio">
-      <h2>Audio Playback</h2>
-      <div class="audio-player">
-        <div class="audio-item">
-          <button id="play-audio1" class="button">Play AI Music</button>
-          <a href="audio/aimusiclabcreateaigeneratedmusic.mp3" download class="button download-btn">Download</a>
-        </div>
-        <div class="audio-item">
-          <button id="play-audio2" class="button">Play Snowman Audio</button>
-          <a href="audio/snowman-snowman-280169.mp3" download class="button download-btn">Download</a>
-        </div>
+      <!-- MIDI Keyboard -->
+      <div id="midi-container">
+        <h3>MIDI Keyboard</h3>
+        <p id="midi-status">Connecting to MIDI device...</p>
+        <p id="midi-message"></p>
       </div>
     </section>
   </main>
