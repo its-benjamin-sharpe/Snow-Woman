@@ -1,22 +1,18 @@
 // Firebase Initialization
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-import { getFirestore, collection, doc, getDoc, setDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
-
-// Initialize Firebase
-const app = initializeApp({
+const firebaseConfig = {
   apiKey: "AIzaSyBo@TziC2KCehJRKref9dnzNjOTOe_1za8",
   authDomain: "rockford-snow-woman.firebaseapp.com",
-  databaseURL: "https://rockford-snow-woman-default-rtdb.firebaseio.com",
   projectId: "rockford-snow-woman",
   storageBucket: "rockford-snow-woman.appspot.com",
   messagingSenderId: "637010052164",
-  appId: "1:637010052164:web:3463938aa214f774d22811",
-  measurementId: "G-KJ4XTKJJMN"
-});
+  appId: "1:637010052164:web:3463938aa214f774d22811"
+};
 
-const db = getFirestore(app);
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-// Jokes Data (Hardcoded)
+// Jokes
 const jokes = [
   { id: "joke1", setup: "Why did the snowman bring a map?", punchline: "Because he got lost in the snowdrift!" },
   { id: "joke2", setup: "What do you call a snowman in summer?", punchline: "A puddle!" },
@@ -28,9 +24,6 @@ let currentJokeIndex = 0;
 // DOM Elements
 const setupElem = document.getElementById("joke-setup");
 const punchlineElem = document.getElementById("joke-punchline");
-const revealBtn = document.getElementById("reveal-btn");
-const prevBtn = document.getElementById("prev-btn");
-const nextBtn = document.getElementById("next-btn");
 const likeBtn = document.getElementById("like-btn");
 const likeCountElem = document.getElementById("like-count");
 const commentForm = document.getElementById("comment-form");
@@ -47,31 +40,31 @@ function loadJoke(index) {
 }
 
 // Reveal Punchline
-revealBtn.addEventListener("click", () => {
+document.getElementById("reveal-btn").addEventListener("click", () => {
   punchlineElem.classList.toggle("hidden");
 });
 
 // Navigate Jokes
-prevBtn.addEventListener("click", () => {
+document.getElementById("prev-btn").addEventListener("click", () => {
   if (currentJokeIndex > 0) {
     currentJokeIndex--;
     loadJoke(currentJokeIndex);
   }
 });
 
-nextBtn.addEventListener("click", () => {
+document.getElementById("next-btn").addEventListener("click", () => {
   if (currentJokeIndex < jokes.length - 1) {
     currentJokeIndex++;
     loadJoke(currentJokeIndex);
   }
 });
 
-// Load Likes and Comments
+// Load Likes and Comments from Firestore
 async function loadLikesAndComments(jokeId) {
-  const jokeRef = doc(db, "jokes", jokeId);
-  const jokeDoc = await getDoc(jokeRef);
+  const jokeRef = db.collection("jokes").doc(jokeId);
+  const jokeDoc = await jokeRef.get();
 
-  if (jokeDoc.exists()) {
+  if (jokeDoc.exists) {
     const data = jokeDoc.data();
     likeCountElem.textContent = data.likes || 0;
     commentList.innerHTML = "";
@@ -82,7 +75,7 @@ async function loadLikesAndComments(jokeId) {
     });
   } else {
     // Initialize joke data if it doesn't exist
-    await setDoc(jokeRef, { likes: 0, comments: [] });
+    await jokeRef.set({ likes: 0, comments: [] });
     likeCountElem.textContent = 0;
     commentList.innerHTML = "";
   }
@@ -91,23 +84,24 @@ async function loadLikesAndComments(jokeId) {
 // Like a Joke
 likeBtn.addEventListener("click", async () => {
   const jokeId = jokes[currentJokeIndex].id;
-  const jokeRef = doc(db, "jokes", jokeId);
+  const jokeRef = db.collection("jokes").doc(jokeId);
 
-  await updateDoc(jokeRef, {
-    likes: (await getDoc(jokeRef)).data().likes + 1,
-  });
-
-  loadLikesAndComments(jokeId);
+  const jokeDoc = await jokeRef.get();
+  if (jokeDoc.exists) {
+    const newLikes = (jokeDoc.data().likes || 0) + 1;
+    await jokeRef.update({ likes: newLikes });
+    loadLikesAndComments(jokeId);
+  }
 });
 
 // Submit a Comment
 commentForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const jokeId = jokes[currentJokeIndex].id;
-  const jokeRef = doc(db, "jokes", jokeId);
+  const jokeRef = db.collection("jokes").doc(jokeId);
 
-  await updateDoc(jokeRef, {
-    comments: arrayUnion(commentInput.value),
+  await jokeRef.update({
+    comments: firebase.firestore.FieldValue.arrayUnion(commentInput.value),
   });
 
   commentInput.value = "";
