@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Snow Woman</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="script.js" defer></script>
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="js/script.js" defer></script>
 </head>
 <body>
   <!-- Snowfall Background -->
   <div class="snow-container"></div>
 
-  <!-- Header Section -->
+  <!-- Header -->
   <header>
     <h1>Snow Woman</h1>
     <p>Created by Chandler's daddy Benjamin Dale Sharpe</p>
@@ -19,23 +19,44 @@
 
   <!-- Main Content -->
   <main>
-    <!-- Gallery Section -->
+    <!-- Image Gallery -->
     <section class="gallery">
       <h2>Gallery</h2>
       <div class="gallery-container">
-        <img src="optimized_image_1.jpg" alt="Snow Scene 1">
-        <img src="optimized_image_2.jpg" alt="Snow Scene 2">
-        <img src="assets/image3.jpg" alt="Snow Scene 3">
-        <img src="assets/image4.jpg" alt="Snow Scene 4">
-        <img src="assets/image5.jpg" alt="Snow Scene 5">
-        <img src="assets/image6.jpg" alt="Snow Scene 6">
-        <img src="assets/image7.jpg" alt="Snow Scene 7">
+        <div class="gallery-item">
+          <img src="images/20250112_145512.jpg" alt="Snowman 1">
+          <a href="images/20250112_145512.jpg" download class="button download-btn">Download</a>
+        </div>
+        <div class="gallery-item">
+          <img src="images/20250112_145520.jpg" alt="Snowman 2">
+          <a href="images/20250112_145520.jpg" download class="button download-btn">Download</a>
+        </div>
+        <div class="gallery-item">
+          <img src="images/20250112_145526.jpg" alt="Snowman 3">
+          <a href="images/20250112_145526.jpg" download class="button download-btn">Download</a>
+        </div>
+        <div class="gallery-item">
+          <img src="images/20250112_145533.jpg" alt="Snowman 4">
+          <a href="images/20250112_145533.jpg" download class="button download-btn">Download</a>
+        </div>
+        <div class="gallery-item">
+          <img src="images/20250112_145541.jpg" alt="Snowman 5">
+          <a href="images/20250112_145541.jpg" download class="button download-btn">Download</a>
+        </div>
+        <div class="gallery-item">
+          <img src="images/20250112_145559.jpg" alt="Snowman 6">
+          <a href="images/20250112_145559.jpg" download class="button download-btn">Download</a>
+        </div>
+        <div class="gallery-item">
+          <img src="images/20250112_145604.jpg" alt="Snowman 7">
+          <a href="images/20250112_145604.jpg" download class="button download-btn">Download</a>
+        </div>
       </div>
     </section>
 
     <!-- Jokes Section -->
     <section class="jokes">
-      <h2>Jokes Section</h2>
+      <h2>Jokes</h2>
       <div class="joke">
         <h3 id="joke-setup">Loading...</h3>
         <button id="reveal-btn" class="button">Reveal Punchline</button>
@@ -43,14 +64,6 @@
         <div class="likes-comments">
           <button id="like-btn" class="button">👍 Like</button>
           <span id="like-count">0</span> likes
-          <div class="comments">
-            <h4>Comments</h4>
-            <ul id="comment-list"></ul>
-            <form id="comment-form">
-              <input id="comment-input" type="text" placeholder="Add a comment" required />
-              <button type="submit" class="button">Submit</button>
-            </form>
-          </div>
         </div>
       </div>
       <div class="navigation">
@@ -58,11 +71,26 @@
         <button id="next-btn" class="button">Next</button>
       </div>
     </section>
+
+    <!-- Audio Section -->
+    <section class="audio">
+      <h2>Audio Playback</h2>
+      <div class="audio-player">
+        <div class="audio-item">
+          <button id="play-audio1" class="button">Play AI Music</button>
+          <a href="audio/aimusiclabcreateaigeneratedmusic.mp3" download class="button download-btn">Download</a>
+        </div>
+        <div class="audio-item">
+          <button id="play-audio2" class="button">Play Snowman Audio</button>
+          <a href="audio/snowman-snowman-280169.mp3" download class="button download-btn">Download</a>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- Footer Section -->
+  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Benjamin Dale Sharpe</p>
+    <p>&copy; 2025 Benjamin Dale Sharpe. All Rights Reserved.</p>
   </footer>
 </body>
 </html>
